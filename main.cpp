@@ -103,6 +103,7 @@ void pressKey(int key) {
 
 int main() {
     int cardNum[10] = {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int padCardNum[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     string nijiiroPath;
     ifstream nijiiroPathFile("nijiiro_path.txt");
     string cardsDatFileName = "cards.dat";
@@ -130,13 +131,19 @@ int main() {
     while (true) {
         if (getCardNum(cardNum) and checkEligibility(cardNum)) {
             std::cout << "Card number detected: ";
+            for (int i = 0; i < 10; i++) {
+                std::cout << cardNum[i];
+            }
+            std::cout << std::endl;
 
             std::ostringstream os;
+            for (int i : padCardNum) {
+                os << i;
+            }
             for (int i : cardNum) {
                 os << i;
             }
             std::string cardNumString(os.str());
-            std::cout << cardNumString << std::endl;
 
             if (fs::exists(cardsDatFilePath)) {
                 ofstream cardsDatFile(cardsDatFilePath);
