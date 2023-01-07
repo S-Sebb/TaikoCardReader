@@ -16,6 +16,7 @@ def press_f3():
 
 class KeystrokeWatcher(object):
     def __init__(self):
+        self.version_number = "3.0"
         self.hm = HookManager()
         self.hm.KeyDown = self.on_keyboard_event
         self.hm.HookKeyboard()
@@ -37,7 +38,7 @@ class KeystrokeWatcher(object):
         if not os.path.exists(self.card_dat_filepath):
             with open(self.card_dat_filepath, "w") as f:
                 f.write("00000000000000000000")
-        print("Program started")
+        print("Program started. Version " + self.version_number)
 
     def on_keyboard_event(self, event):
         num_keys = [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39]
