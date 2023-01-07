@@ -10,7 +10,7 @@ from win32gui import PumpMessages, PostQuitMessage
 
 def press_f3():
     keybd_event(114, 0, 0, 0)
-    time.sleep(1)
+    time.sleep(0.5)
     keybd_event(114, 0, KEYEVENTF_KEYUP, 0)
 
 
