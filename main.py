@@ -21,10 +21,16 @@ class KeystrokeWatcher(object):
         self.hm.HookKeyboard()
         self.last_stroke_time = None
         self.card_num = []
+        if not os.path.exists("nijiiro_path.txt"):
+            print("nijiiro_path.txt not found.\n"
+                  "Program will quit in 10 seconds.")
+            time.sleep(10)
+            exit()
         with open("nijiiro_path.txt", "r") as f:
             self.nijiiro_path = f.read().strip()
         if not os.path.exists(os.path.join(self.nijiiro_path, "bnusio.dll")):
-            print("Nijiiro taiko.exe is not found in nijiiro_path.txt path. Program will quit in 10 seconds.")
+            print("Please make sure the path in nijiiro_path.txt points to correct Nijiiro install location.\n"
+                  "Program will quit in 10 seconds.")
             time.sleep(10)
             exit()
         self.card_dat_filepath = os.path.join(self.nijiiro_path, "cards.dat")
@@ -62,7 +68,7 @@ class KeystrokeWatcher(object):
                 with open(self.card_dat_filepath, "w") as f:
                     f.write(card_num)
                 press_f3()
-                time.sleep(0.5)
+                time.sleep(0.3)
             else:
                 print("Invalid card num: " + card_num)
             self.card_num = []
