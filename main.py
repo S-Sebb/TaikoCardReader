@@ -16,7 +16,7 @@ def press_f3():
 
 class KeystrokeWatcher(object):
     def __init__(self):
-        self.version_number = "3.1"
+        self.version_number = "3.2"
         self.hm = HookManager()
         self.hm.KeyDown = self.on_keyboard_event
         self.hm.HookKeyboard()
@@ -58,11 +58,16 @@ class KeystrokeWatcher(object):
                 self.last_stroke_time = current_stroke_time
                 self.card_num.append(key_num)
         else:
-            if current_stroke_time - self.last_stroke_time > 1:
-                self.card_num = [key_num]
+            if current_stroke_time - self.last_stroke_time > 0.5:
+                if key_num == "2":
+                    self.last_stroke_time = current_stroke_time
+                    self.card_num.append(key_num)
+                else:
+                    self.last_stroke_time = None
+                    self.card_num = []
             else:
                 self.card_num.append(key_num)
-            self.last_stroke_time = current_stroke_time
+                self.last_stroke_time = current_stroke_time
         if len(self.card_num) >= 10:
             card_num = "".join(self.card_num)
             if len(card_num) == 10 and card_num.startswith("20000"):
