@@ -16,7 +16,7 @@ def press_f3():
 
 class KeystrokeWatcher(object):
     def __init__(self):
-        self.version_number = "3.2"
+        self.version_number = "3.4"
         self.hm = HookManager()
         self.hm.KeyDown = self.on_keyboard_event
         self.hm.HookKeyboard()
@@ -58,13 +58,14 @@ class KeystrokeWatcher(object):
                 self.last_stroke_time = current_stroke_time
                 self.card_num.append(key_num)
         else:
-            if current_stroke_time - self.last_stroke_time > 0.5:
+            if current_stroke_time - self.last_stroke_time > 0.05:
                 if key_num == "2":
                     self.last_stroke_time = current_stroke_time
-                    self.card_num.append(key_num)
+                    self.card_num = [key_num]
                 else:
                     self.last_stroke_time = None
                     self.card_num = []
+                    return
             else:
                 self.card_num.append(key_num)
                 self.last_stroke_time = current_stroke_time
@@ -76,7 +77,6 @@ class KeystrokeWatcher(object):
                 with open(self.card_dat_filepath, "w") as f:
                     f.write(card_num)
                 press_f3()
-                time.sleep(0.3)
             else:
                 print("Invalid card num: " + card_num)
             self.card_num = []
