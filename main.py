@@ -10,7 +10,7 @@ from win32gui import PumpMessages, PostQuitMessage
 
 def press_f3():
     keybd_event(114, 0, 0, 0)
-    time.sleep(0.5)
+    time.sleep(0.3)
     keybd_event(114, 0, KEYEVENTF_KEYUP, 0)
 
 
@@ -76,6 +76,8 @@ class KeystrokeWatcher(object):
                 card_num = "0000000000" + card_num
                 with open(self.card_dat_filepath, "w") as f:
                     f.write(card_num)
+                press_f3()
+                time.sleep(0.1)
                 press_f3()
             else:
                 print("Invalid card num: " + card_num)
