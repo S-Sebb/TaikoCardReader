@@ -75,6 +75,8 @@ class KeystrokeWatcher(object):
                 with open(self.card_dat_filepath, "w") as f:
                     f.write(card_num)
                 press_f3()
+                time.sleep(0.3)
+                press_f3()
             else:
                 print("Invalid card num: " + card_num)
             self.card_num = []
