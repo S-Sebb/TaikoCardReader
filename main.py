@@ -4,19 +4,17 @@ import time
 
 from pyWinhook import HookManager
 from win32api import keybd_event
-from win32con import KEYEVENTF_KEYUP
+from win32con import KEYEVENTF_KEYUP, KEYEVENTF_EXTENDEDKEY
 from win32gui import PumpMessages, PostQuitMessage
 
 
 def press_f3():
-    keybd_event(114, 0, 0, 0)
-    time.sleep(0.3)
-    keybd_event(114, 0, KEYEVENTF_KEYUP, 0)
+    keybd_event(114, 0, KEYEVENTF_EXTENDEDKEY, 0)
 
 
 class KeystrokeWatcher(object):
     def __init__(self):
-        self.version_number = "3.4"
+        self.version_number = "3.6"
         self.hm = HookManager()
         self.hm.KeyDown = self.on_keyboard_event
         self.hm.HookKeyboard()
@@ -76,8 +74,6 @@ class KeystrokeWatcher(object):
                 card_num = "0000000000" + card_num
                 with open(self.card_dat_filepath, "w") as f:
                     f.write(card_num)
-                press_f3()
-                time.sleep(0.1)
                 press_f3()
             else:
                 print("Invalid card num: " + card_num)
